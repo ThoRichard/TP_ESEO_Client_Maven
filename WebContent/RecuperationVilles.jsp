@@ -43,12 +43,17 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ml-auto">
-					<form method="post" action="RecuperationVilles">
-						<li class="nav-item"><button type="submit"
-								class="btn btn-outline-warning">Calcul de distance</button></li>
-					</form>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="#portfolio">Toutes les villes</a></li>
+
+					<li class="nav-item"><form method="post"
+							action="RecuperationVilles">
+							<button type="submit" class="btn btn-outline-warning">Calcul
+								de distance</button>
+						</form></li>
+
+					<li class="nav-item">
+						<button onclick="window.location.href = 'AfficheVilles?pageno=1';"
+							class="btn btn-outline-warning">Afficher toutes les villes</button>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -65,58 +70,60 @@
 				<h1 class="font-weight-light">Calcul la distance entre les
 					villes</h1>
 				<p class="lead">Veuillez choisir deux villes :</p>
-				
-					<div class="row vertical-offset-100">
-						<div class="col-sm-5 mx-auto">
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h3 class="panel-title">Villes choisies :</h3>
-									<br>
-								</div>
-								<div class="panel-body">
-									<FORM method="post" action="calculDistance">
-										<fieldset>
-											<div class="form-group">
 
-												<SELECT name="ville1" size="1">
-													<%
-														ArrayList<Ville> liste1 = (ArrayList) session.getAttribute("villes");
-														for (Ville ville : liste1) {
-													%>
-													<OPTION>
-														<%=ville.getNomCommune()%>
-														<%
-															}
-														%>
-													
-												</SELECT> <SELECT name="ville2" size="1">
-													<%
-														ArrayList<Ville> liste2 = (ArrayList) session.getAttribute("villes");
-														for (Ville ville : liste2) {
-													%>
-													<OPTION>
-														<%=ville.getNomCommune()%>
-														<%
-															}
-														%>
-													
-												</SELECT> <br> <br> <input
-													class="btn btn-lg btn-primary btn-block" type="submit"
-													value="Calcul de la distance" name="action">
-											</div>
-										</fieldset>
-										<input class="btn btn-lg btn-primary btn-block" type="submit"
-											value="Voir la météo" name="action">
-									</FORM>
-									<br> <a href="afficheVille"> Afficher les villes </a><br>
-								</div>
+				<div class="row vertical-offset-100">
+					<div class="col-sm-5 mx-auto">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">Villes choisies :</h3>
+								<br>
 							</div>
-						
+							<div class="panel-body">
+								<form method="post" action="calculDistance">
+									<fieldset>
+										<div class="form-group">
+
+											<select name="ville1" size="1" class="form-control">
+												<%
+													ArrayList<Ville> liste1 = (ArrayList) session.getAttribute("villes");
+													for (Ville ville : liste1) {
+												%>
+												<option>
+													<%=ville.getNomCommune()%>
+													<%
+														}
+													%>
+												
+											</select> 
+											<div style="padding-bottom: 10px;"></div>
+											<select name="ville2" size="1" class="form-control">
+												<%
+													ArrayList<Ville> liste2 = (ArrayList) session.getAttribute("villes");
+													for (Ville ville : liste2) {
+												%>
+												<option>
+													<%=ville.getNomCommune()%>
+													<%
+														}
+													%>
+												
+											</select> <br> <br> <input
+												class="btn btn-lg btn-primary btn-block" type="submit"
+												value="Calcul de la distance" name="action">
+										</div>
+									</fieldset>
+									<input class="btn btn-lg btn-primary btn-block" type="submit"
+										value="Voir la météo de la ville de destination" name="action">
+								</form>
+							
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</div>
 		</div>
-	
+
 
 		<!-- Bootstrap core JS-->
 		<script
