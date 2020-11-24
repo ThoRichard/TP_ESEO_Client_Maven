@@ -55,9 +55,10 @@
 							class="btn btn-outline-warning">Afficher toutes les
 							villes</button>
 					</li>
-					
+
 					<li class="nav-item">
-						<button onclick="window.location.href = 'RecuperationVilles?meteo=1';"
+						<button
+							onclick="window.location.href = 'RecuperationVilles?meteo=1';"
 							class="btn btn-outline-warning">Voir la meteo</button>
 					</li>
 				</ul>
@@ -73,19 +74,14 @@
 			<div class="text-center">
 
 
-				<h1 class="font-weight-light">Calcul la distance entre les
-					villes</h1>
-				<p class="lead">Veuillez choisir deux villes :</p>
+				<h1 class="font-weight-light">Affichage de la météo</h1>
+				<p class="lead">Veuillez choisir une ville :</p>
 
 				<div class="row vertical-offset-100">
 					<div class="col-sm-5 mx-auto">
 						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h3 class="panel-title">Villes choisies :</h3>
-								<br>
-							</div>
 							<div class="panel-body">
-								<form method="post" action="CalculDistance">
+								<form method="post" action="RecuperationMeteo">
 									<fieldset>
 										<div class="form-group">
 
@@ -100,22 +96,9 @@
 														}
 													%>
 												
-											</select>
-											<div style="padding-bottom: 10px;"></div>
-											<select name="ville2" size="1" class="form-control">
-												<%
-													ArrayList<Ville> liste2 = (ArrayList) session.getAttribute("villes");
-													for (Ville ville : liste2) {
-												%>
-												<option>
-													<%=ville.getNomCommune()%>
-													<%
-														}
-													%>
-												
 											</select> <br> <br> <input
 												class="btn btn-lg btn-primary btn-block" type="submit"
-												value="Calcul de la distance" name="action">
+												value="Voir la météo" name="action">
 										</div>
 									</fieldset>
 								</form>

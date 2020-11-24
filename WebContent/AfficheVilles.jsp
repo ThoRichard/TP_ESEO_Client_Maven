@@ -85,6 +85,11 @@
 							class="btn btn-outline-warning">Afficher toutes les
 							villes</button>
 					</li>
+					
+					<li class="nav-item">
+						<button onclick="window.location.href = 'RecuperationVilles?meteo=1';"
+							class="btn btn-outline-warning">Voir la meteo</button>
+					</li>
 				</ul>
 			</div>
 		</div>

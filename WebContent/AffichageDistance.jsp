@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="com.Ville"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -65,82 +66,52 @@
 		</div>
 	</nav>
 	<!-- Masthead-->
-	<div class="container"></div>
 
-	<br>
 	<section class="page-section" id="services">
 		<div class="container">
 			<div class="text-center">
-
-
-				<h1 class="font-weight-light">Calcul la distance entre les
-					villes</h1>
-				<p class="lead">Veuillez choisir deux villes :</p>
-
-				<div class="row vertical-offset-100">
-					<div class="col-sm-5 mx-auto">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h3 class="panel-title">Villes choisies :</h3>
-								<br>
-							</div>
-							<div class="panel-body">
-								<form method="post" action="CalculDistance">
-									<fieldset>
-										<div class="form-group">
-
-											<select name="ville1" size="1" class="form-control">
-												<%
-													ArrayList<Ville> liste1 = (ArrayList) session.getAttribute("villes");
-													for (Ville ville : liste1) {
-												%>
-												<option>
-													<%=ville.getNomCommune()%>
-													<%
-														}
-													%>
-												
-											</select>
-											<div style="padding-bottom: 10px;"></div>
-											<select name="ville2" size="1" class="form-control">
-												<%
-													ArrayList<Ville> liste2 = (ArrayList) session.getAttribute("villes");
-													for (Ville ville : liste2) {
-												%>
-												<option>
-													<%=ville.getNomCommune()%>
-													<%
-														}
-													%>
-												
-											</select> <br> <br> <input
-												class="btn btn-lg btn-primary btn-block" type="submit"
-												value="Calcul de la distance" name="action">
-										</div>
-									</fieldset>
-								</form>
-
-							</div>
-						</div>
-
-					</div>
-				</div>
+				<br>
+				<h1 class="font-weight-light">Résultat du calcul : </h1>
+				<br>
+				<h4 class="font-weight-light">
+					La distance entre
+					<%=session.getAttribute("ville1")%>
+					et
+					<%=session.getAttribute("ville2")%>
+					est de
+					<%=session.getAttribute("distance")%>
+					km.
+				</h4>
+				<br>
+				<h4 class="font-weight-light">
+					La température à
+					<%=session.getAttribute("ville2")%>
+					est de
+					<%=session.getAttribute("tempsVille2")%>
+					°C.
+				</h4>
 			</div>
 		</div>
+	</section>
 
 
-		<!-- Bootstrap core JS-->
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-		<!-- Third party plugin JS-->
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-		<!-- Contact form JS-->
-		<script src="assets/mail/jqBootstrapValidation.js"></script>
-		<script src="assets/mail/contact_me.js"></script>
-		<!-- Core theme JS-->
-		<script src="js/scripts.js"></script>
+	<!-- Bootstrap core JS-->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Third party plugin JS-->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+	<!-- Contact form JS-->
+	<script src="assets/mail/jqBootstrapValidation.js"></script>
+	<script src="assets/mail/contact_me.js"></script>
+	<!-- Core theme JS-->
+	<script src="js/scripts.js"></script>
+	<script>
+		$(function() {
+			$('[data-toggle="tooltip"]').tooltip()
+		})
+	</script>
 </body>
 </html>

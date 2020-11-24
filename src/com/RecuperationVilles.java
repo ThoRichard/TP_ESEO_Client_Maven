@@ -52,8 +52,16 @@ public class RecuperationVilles extends HttpServlet {
 			e.printStackTrace();
 		}
 		session.setAttribute("villes", villes);
-		RequestDispatcher req = request.getRequestDispatcher("RecuperationVilles.jsp");
-		req.forward(request, response);
+		
+		String sNumeroDePage = request.getParameter("meteo");
+		if(sNumeroDePage != null) {
+			RequestDispatcher req = request.getRequestDispatcher("RecuperationVillesMeteo.jsp");
+			req.forward(request, response);
+		} else {
+			RequestDispatcher req = request.getRequestDispatcher("RecuperationVilles.jsp");
+			req.forward(request, response);
+		}
+		
 	}
 
 	private ArrayList<Ville> tabToVille(JsonArray tab) {
