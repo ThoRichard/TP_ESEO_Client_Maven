@@ -47,14 +47,14 @@ public class RecuperationVilles extends HttpServlet {
 		try {
 			reponse = Unirest.get("http://localhost:8181/ville").asJson();
 			JsonArray jArray = JsonParser.parseString(reponse.getBody().toString()).getAsJsonArray();
-			villes = this.tabToVille(jArray);
+			villes = this.convertJSONToArray(jArray);
 		} catch (UnirestException e) {
 			e.printStackTrace();
 		}
 		session.setAttribute("villes", villes);
 		
-		String sNumeroDePage = request.getParameter("meteo");
-		if(sNumeroDePage != null) {
+		String meteo = request.getParameter("meteo");
+		if(meteo != null) {
 			RequestDispatcher req = request.getRequestDispatcher("RecuperationVillesMeteo.jsp");
 			req.forward(request, response);
 		} else {
@@ -64,7 +64,7 @@ public class RecuperationVilles extends HttpServlet {
 		
 	}
 
-	private ArrayList<Ville> tabToVille(JsonArray tab) {
+	private ArrayList<Ville> convertJSONToArray(JsonArray tab) {
 		final Gson gson = new GsonBuilder().create();
 		ArrayList<Ville> villes = new ArrayList<>();
 

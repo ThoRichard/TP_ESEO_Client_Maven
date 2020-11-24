@@ -30,35 +30,6 @@
 <link href="css/styles.css" rel="stylesheet" />
 </head>
 <body id="page-top">
-	<%
-		int indexDebut = (int) request.getAttribute("indexDebut");
-
-		int nombrePage = (int) request.getAttribute("nombrePage");
-		int numeroPage = (int) request.getAttribute("numeroPage");
-		int pageDebut;
-		if (numeroPage == 1 || numeroPage == 2) {
-			pageDebut = 1;
-		} else {
-			pageDebut = numeroPage - 2;
-		}
-
-		int pageFin;
-		if (numeroPage == nombrePage || numeroPage == nombrePage - 1) {
-			pageFin = (int) nombrePage;
-		} else {
-			pageFin = numeroPage + 2;
-		}
-
-		ArrayList<Ville> villes = (ArrayList) request.getAttribute("villes");
-		int indexFin = 0;
-		if (indexDebut == ((nombrePage - 1) * 50)) {
-			indexFin = villes.size();
-		} else {
-			indexFin = indexDebut + 50;
-		}
-
-		String url = (String) session.getAttribute("url");
-	%>
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark"
 		id="mainNav">
@@ -85,9 +56,10 @@
 							class="btn btn-outline-warning">Afficher toutes les
 							villes</button>
 					</li>
-					
+
 					<li class="nav-item">
-						<button onclick="window.location.href = 'RecuperationVilles?meteo=1';"
+						<button
+							onclick="window.location.href = 'RecuperationVilles?meteo=1';"
 							class="btn btn-outline-warning">Voir la météo</button>
 					</li>
 				</ul>
@@ -95,76 +67,60 @@
 		</div>
 	</nav>
 	<!-- Masthead-->
-	<div class="container"></div>
 
-	<br>
 	<section class="page-section" id="services">
 		<div class="container">
 			<div class="text-center">
-
-				<h1 class="font-weight-light">Liste des villes :</h1>
 				<br>
+				<h1 class="font-weight-light">
+					Modification de la ville
+					<%=session.getAttribute("nomCommune")%></h1>
+				<br>
+				<form method="POST" action="EffectuerModification">
+					<div class="form-group">
+						<label for="codeCommune">Code Commune INSEE</label> <input
+							type="text" class="form-control" id="codeCommune"
+							value="<%=session.getAttribute("codeCommune")%>" disabled> 
+					</div>
+					<div class="form-group">
+						<label for="nomCommune">Nom commune</label> <input
+							type="text" class="form-control" id="nomCommune" name="nomCommune"
+							value="<%=session.getAttribute("nomCommune")%>" required> 
+					</div>
+					<div class="form-group">
+						<label for="codePostal">Code postal</label> <input
+							type="text" class="form-control" id="codePostal" name="codePostal"
+							value ="<%=session.getAttribute("codePostal")%>" required> 
+					</div>
+					<div class="form-group">
+						<label for="libelleAcheminement">Libelle acheminement</label> <input
+							type="text" class="form-control" id="libelleAcheminement" name="libelleAcheminement"
+							value="<%=session.getAttribute("libelleAcheminement")%>" required> 
+					</div>
+					
+					<div class="form-group">
+						<label for="ligne">Ligne</label> <input
+							type="text" class="form-control" id="ligne" name="ligne"
+							value="<%=session.getAttribute("ligne")%>"> 
+					</div>
+					<div class="form-group">
+						<label for="latitude">Latitude</label> <input
+							type="number" step="any" class="form-control" id="latitude" name="latitude"
+							value="<%=session.getAttribute("latitude")%>"> 
+					</div>
+					<div class="form-group">
+						<label for="longitude">Longitude</label> <input
+							type="number" step="any" class="form-control" id="longitude" name="longitude"
+							value="<%=session.getAttribute("longitude")%>"> 
+					</div>
+					<button type="submit" name="codeCommune" value="<%=session.getAttribute("codeCommune")%>" class="btn btn-primary">Modifier</button>
+				</form>
 
-				<table class="table">
-					<thead>
-						<tr>
-							<th scope="col">Ville</th>
-							<th scope="col">#</th>
-							<th scope="col">#</th>
-						</tr>
-					</thead>
-					<tbody>
-						<form method="post" action="modification">
-
-							<%
-								for (int i = indexDebut; i < indexFin; i++) {
-							%>
-						
-						<tr>
-							<td><%=villes.get(i).getNomCommune()%></td>
-							<td><a
-								href="ModificationVille?ville=<%=villes.get(i).getNomCommune()%>">Modifier</a></td>
-							<td><a
-								href="SuppressionVille?ville=<%=villes.get(i).getNomCommune()%>">Supprimer</a><br></td>
-						</tr>
-
-						<%
-							}
-						%>
-
-						</form>
-					</tbody>
-				</table>
 			</div>
 		</div>
-
-		<%
-			if (nombrePage > 1) {
-		%>
-		<div class="container-central" style="margin-top: 19px;">
-			<nav aria-label="Page navigation example">
-				<ul class="pagination justify-content-center">
-					<li class="page-item"><a class="page-link"
-						href="AfficheVilles?pageno=1" aria-label="Previous"> <span
-							aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span>
-					</a></li>
-					<c:forEach var="entry" begin="<%=pageDebut%>" end="<%=pageFin%>"
-						step="1">
-						<li class="page-item"><a class="page-link"
-							href="AfficheVilles?pageno=${entry}">${entry}</a></li>
-					</c:forEach>
-					<li class="page-item"><a class="page-link"
-						href="AfficheVilles?pageno=<%=nombrePage%>" aria-label="Next">
-							<span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
-					</a></li>
-				</ul>
-			</nav>
-		</div>
-		<%
-			}
-		%>
-
 	</section>
+
+
 	<!-- Bootstrap core JS-->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -184,5 +140,4 @@
 		})
 	</script>
 </body>
-
 </html>

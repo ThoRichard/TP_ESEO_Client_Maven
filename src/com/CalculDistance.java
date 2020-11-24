@@ -74,8 +74,7 @@ public class CalculDistance extends HttpServlet {
 		}
 
 		HttpResponse<JsonNode> reponse2;
-		String url2 = "http://api.openweathermap.org/data/2.5/weather?APPID=2129170164288096a566a7b4580ed806&lat="
-				+ latitude2 + "&lon=" + longitude2 + "";
+		String url2 = "http://api.openweathermap.org/data/2.5/weather?lat="+ latitude2 + "&lon=" + longitude2 + "&appid=e7981aedc88a1188690110ee718393bf";
 		try {
 			DecimalFormat df = new DecimalFormat("###.##");
 			reponse2 = Unirest.get(url2).asJson();

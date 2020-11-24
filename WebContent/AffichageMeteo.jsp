@@ -59,7 +59,7 @@
 					
 					<li class="nav-item">
 						<button onclick="window.location.href = 'RecuperationVilles?meteo=1';"
-							class="btn btn-outline-warning">Voir la meteo</button>
+							class="btn btn-outline-warning">Voir la météo</button>
 					</li>
 				</ul>
 			</div>

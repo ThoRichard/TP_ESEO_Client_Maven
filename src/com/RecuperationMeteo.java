@@ -47,21 +47,20 @@ public class RecuperationMeteo extends HttpServlet {
 		String ville1 = request.getParameter("ville1");
 		session.setAttribute("ville1", ville1);
 
-		float latitude1 = 0;
-		float longitude1 = 0;
+		float latitude = 0;
+		float longitude = 0;
 
 		for (Ville ville : villes) {
 			if (ville.getNomCommune().equals(ville1)) {
-				latitude1 = ville.getLatitude();
-				longitude1 = ville.getLongitude();
+				latitude = ville.getLatitude();
+				longitude = ville.getLongitude();
 			}
 
 		}
 
 		HttpResponse<JsonNode> reponse1;
 
-		String url1 = "http://api.openweathermap.org/data/2.5/weather?APPID=2129170164288096a566a7b4580ed806&lat="
-				+ latitude1 + "&lon=" + longitude1 + "";
+		String url1 = "http://api.openweathermap.org/data/2.5/weather?lat="+ latitude + "&lon=" + longitude + "&appid=e7981aedc88a1188690110ee718393bf";
 		try {
 			DecimalFormat df = new DecimalFormat("###.##");
 			reponse1 = Unirest.get(url1).asJson();

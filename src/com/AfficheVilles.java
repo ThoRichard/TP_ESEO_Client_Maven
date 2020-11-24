@@ -49,18 +49,17 @@ public class AfficheVilles extends HttpServlet {
 		int nombrePage = 0;
 
 		HttpSession session = request.getSession();
-		ArrayList<Ville> villes = (ArrayList<Ville>) session.getAttribute("villes");
 		HttpResponse<JsonNode> reponse;
-		ArrayList<Ville> villesRecup = villes != null ? villes : null;
-		if(villesRecup == null) {
+		ArrayList<Ville> villesRecup = null ;
+		
 			try {
 				reponse = Unirest.get("http://localhost:8181/ville").asJson();
 				JsonArray jArray = JsonParser.parseString(reponse.getBody().toString()).getAsJsonArray();
-				villesRecup = this.tabToVille(jArray);
+				villesRecup = this.convertJSONToArray(jArray);
 			} catch (UnirestException e) {
 				e.printStackTrace();
 			}
-		}
+		
 		
 		session.setAttribute("villes", villesRecup);
 		
@@ -83,7 +82,7 @@ public class AfficheVilles extends HttpServlet {
 		req.forward(request, response);
 	}
 	
-	private ArrayList<Ville> tabToVille(JsonArray tab) {
+	private ArrayList<Ville> convertJSONToArray(JsonArray tab) {
 		final Gson gson = new GsonBuilder().create();
 		ArrayList<Ville> villes = new ArrayList<>();
 
