@@ -50,7 +50,7 @@ public class AfficheVilles extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		HttpResponse<JsonNode> reponse;
-		ArrayList<Ville> villesRecup = null ;
+		ArrayList<Ville> villesRecup = new ArrayList<Ville>();
 		
 			try {
 				reponse = Unirest.get("http://localhost:8181/ville").asJson();
