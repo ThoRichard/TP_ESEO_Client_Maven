@@ -35,13 +35,16 @@ public class ModificationVille extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		ArrayList<Ville> villes = (ArrayList<Ville>) session.getAttribute("villes");
+		/**
+		 * Code commune INSEE unique
+		 */
 		String villeModif = request.getParameter("ville");
 		
 
-		String codeCommune = null; 
-		String codePostal = null;
-		String libelleAcheminement = null; 
-		String ligne = null;
+		String codeCommune = ""; 
+		String codePostal = "";
+		String libelleAcheminement = ""; 
+		String ligne = "";
 		float latitude = 0; 
 		float longitude = 0; 
 		
@@ -58,9 +61,9 @@ public class ModificationVille extends HttpServlet {
 		
 		session.setAttribute("codeCommune", codeCommune);
 		session.setAttribute("nomCommune", villeModif);
-		session.setAttribute("codePostal", codePostal != null ? codePostal : "");
-		session.setAttribute("libelleAcheminement", libelleAcheminement != null ? libelleAcheminement : "");
-		session.setAttribute("ligne", ligne != null ? ligne : "");
+		session.setAttribute("codePostal", codePostal);
+		session.setAttribute("libelleAcheminement", libelleAcheminement);
+		session.setAttribute("ligne", ligne);
 		session.setAttribute("latitude", latitude);
 		session.setAttribute("longitude", longitude);
 		session.setAttribute("villes", villes);

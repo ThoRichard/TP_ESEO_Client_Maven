@@ -86,7 +86,9 @@ public class AfficheVilles extends HttpServlet {
 		final Gson gson = new GsonBuilder().create();
 		ArrayList<Ville> villes = new ArrayList<>();
 
-		// Itération autour du tableau de données
+		/**
+		 * Itération autour du tableau de données
+		 */
 		for (JsonElement element : tab) {
 			villes.add(gson.fromJson(element, Ville.class));
 		}

@@ -73,12 +73,12 @@ public class CalculDistance extends HttpServlet {
 			session.setAttribute("erreurRecuperation1", "Coordonnées de la deuxième ville non récupérées");
 		}
 
-		HttpResponse<JsonNode> reponse2;
+		HttpResponse<JsonNode> httpResponse;
 		String url2 = "http://api.openweathermap.org/data/2.5/weather?lat="+ latitude2 + "&lon=" + longitude2 + "&appid=e7981aedc88a1188690110ee718393bf";
 		try {
 			DecimalFormat df = new DecimalFormat("###.##");
-			reponse2 = Unirest.get(url2).asJson();
-			JsonElement jArray2 = JsonParser.parseString(reponse2.getBody().toString());
+			httpResponse = Unirest.get(url2).asJson();
+			JsonElement jArray2 = JsonParser.parseString(httpResponse.getBody().toString());
 			JsonObject rootObject2 = jArray2.getAsJsonObject();
 			String tempFVille2 = rootObject2.getAsJsonObject("main").get("temp").toString();
 			double tempCVille2 = this.fahrenheitToCelcius(Double.parseDouble(tempFVille2));

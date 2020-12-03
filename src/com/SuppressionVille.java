@@ -22,16 +22,16 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 @WebServlet("/SuppressionVille")
 public class SuppressionVille extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SuppressionVille() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-    /**
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public SuppressionVille() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -41,20 +41,17 @@ public class SuppressionVille extends HttpServlet {
 		HttpSession session = request.getSession();
 		ArrayList<Ville> villes = (ArrayList<Ville>) session.getAttribute("villes");
 		String villeModif = request.getParameter("ville");
-		
 
-		String codeCommune = null; 
-		
-		
+		String codeCommune = "";
+
 		for (Ville ville : villes) {
 			if (ville.getNomCommune().equals(villeModif)) {
 				codeCommune = ville.getCodeCommune();
-				
 			}
 		}
-		
+
 		try {
-			HttpResponse<JsonNode> reponse = Unirest.delete("http://localhost:8181/ville/" + codeCommune).asJson();
+			Unirest.delete("http://localhost:8181/ville/" + codeCommune).asJson();
 		} catch (UnirestException e) {
 			e.printStackTrace();
 		}

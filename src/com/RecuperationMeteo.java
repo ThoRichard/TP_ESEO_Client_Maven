@@ -59,28 +59,27 @@ public class RecuperationMeteo extends HttpServlet {
 
 		}
 
-		HttpResponse<JsonNode> reponse1;
-		String url1 = "http://api.openweathermap.org/data/2.5/weather?lat="+ latitude + "&lon=" + longitude + "&appid=e7981aedc88a1188690110ee718393bf&lang=fr";
+		HttpResponse<JsonNode> httpReponse;
+		String url = "http://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude
+				+ "&appid=e7981aedc88a1188690110ee718393bf&lang=fr";
 		try {
-			DecimalFormat df = new DecimalFormat("###.##");
-			reponse1 = Unirest.get(url1).asJson();
-			JsonElement jArray1 = JsonParser.parseString(reponse1.getBody().toString());
-			JsonObject rootObject1 = jArray1.getAsJsonObject();
-			String tempFVille1 = rootObject1.getAsJsonObject("main").get("temp").toString();
+			httpReponse = Unirest.get(url).asJson();
+			JsonElement jsonArray = JsonParser.parseString(httpReponse.getBody().toString());
+			JsonObject jsonObject = jsonArray.getAsJsonObject();
+			String temperatureFahrenheitVille = jsonObject.getAsJsonObject("main").get("temp").toString();
 			/**
-			 * TODO 
-			 * Afficher l'icône et les conditions climatiques
+			 * TODO Afficher l'icône et les conditions climatiques
 			 */
-			JsonArray weather = rootObject1.getAsJsonArray("weather");
+			JsonArray weather = jsonObject.getAsJsonArray("weather");
 			String iconMeteo = (weather.get(0).getAsJsonObject()).get("icon").getAsString().trim();
 			String descriptionWeather = (weather.get(0).getAsJsonObject()).get("description").getAsString().trim();
-			String generalWeather = (weather.get(0).getAsJsonObject()).get("main").getAsString().trim();
-			double tempCVille1 = this.fahrenheitToCelcius(Double.parseDouble(tempFVille1));
-			session.setAttribute("tempsVille1", df.format(tempCVille1));
+			double temperatureCelsiusVille = this.fahrenheitToCelcius(Double.parseDouble(temperatureFahrenheitVille));
+
+			DecimalFormat decimalFormat = new DecimalFormat("###.##");
+			session.setAttribute("tempsVille1", decimalFormat.format(temperatureCelsiusVille));
 			session.setAttribute("iconMeteo", "http://openweathermap.org/img/w/" + iconMeteo + ".png");
 			session.setAttribute("descriptionWeather", descriptionWeather);
-			
-			
+
 		} catch (UnirestException e) {
 			e.printStackTrace();
 		}
