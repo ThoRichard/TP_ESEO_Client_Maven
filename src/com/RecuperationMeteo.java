@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -59,17 +60,27 @@ public class RecuperationMeteo extends HttpServlet {
 		}
 
 		HttpResponse<JsonNode> reponse1;
-
-		String url1 = "http://api.openweathermap.org/data/2.5/weather?lat="+ latitude + "&lon=" + longitude + "&appid=e7981aedc88a1188690110ee718393bf";
+		String url1 = "http://api.openweathermap.org/data/2.5/weather?lat="+ latitude + "&lon=" + longitude + "&appid=e7981aedc88a1188690110ee718393bf&lang=fr";
 		try {
 			DecimalFormat df = new DecimalFormat("###.##");
 			reponse1 = Unirest.get(url1).asJson();
 			JsonElement jArray1 = JsonParser.parseString(reponse1.getBody().toString());
 			JsonObject rootObject1 = jArray1.getAsJsonObject();
 			String tempFVille1 = rootObject1.getAsJsonObject("main").get("temp").toString();
+			/**
+			 * TODO 
+			 * Afficher l'icône et les conditions climatiques
+			 */
+			JsonArray weather = rootObject1.getAsJsonArray("weather");
+			String iconMeteo = (weather.get(0).getAsJsonObject()).get("icon").getAsString().trim();
+			String descriptionWeather = (weather.get(0).getAsJsonObject()).get("description").getAsString().trim();
+			String generalWeather = (weather.get(0).getAsJsonObject()).get("main").getAsString().trim();
 			double tempCVille1 = this.fahrenheitToCelcius(Double.parseDouble(tempFVille1));
 			session.setAttribute("tempsVille1", df.format(tempCVille1));
-
+			session.setAttribute("iconMeteo", "http://openweathermap.org/img/w/" + iconMeteo + ".png");
+			session.setAttribute("descriptionWeather", descriptionWeather);
+			
+			
 		} catch (UnirestException e) {
 			e.printStackTrace();
 		}

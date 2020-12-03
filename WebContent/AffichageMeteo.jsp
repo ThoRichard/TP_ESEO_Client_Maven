@@ -56,9 +56,10 @@
 							class="btn btn-outline-warning">Afficher toutes les
 							villes</button>
 					</li>
-					
+
 					<li class="nav-item">
-						<button onclick="window.location.href = 'RecuperationVilles?meteo=1';"
+						<button
+							onclick="window.location.href = 'RecuperationVilles?meteo=1';"
 							class="btn btn-outline-warning">Voir la météo</button>
 					</li>
 				</ul>
@@ -71,16 +72,17 @@
 		<div class="container">
 			<div class="text-center">
 				<br>
-				<h1 class="font-weight-light">Météo : </h1>
-				<br>
-				<br>
+				<h1 class="font-weight-light">Météo</h1>
+				<br> <br>
 				<h4 class="font-weight-light">
 					La température à
 					<%=session.getAttribute("ville1")%>
 					est de
 					<%=session.getAttribute("tempsVille1")%>
-					°C.
+					°C. Le temps est
+					<%=session.getAttribute("descriptionWeather")%>.
 				</h4>
+				<img src="<%=session.getAttribute("iconMeteo")%>">
 			</div>
 		</div>
 	</section>
